@@ -1,0 +1,13 @@
+Sub CreateIndexSheet()
+    Dim wSheet As Worksheet
+    ActiveWorkbook.Sheets.Add(Before:=Worksheets(1)).Name = "Contents" 'Call whatever you like
+    Range("A1").Select
+    Application.ScreenUpdating = False 'Prevents seeing all the flashing as it updates the sheet
+    For Each wSheet In Worksheets
+        ActiveSheet.Hyperlinks.Add Anchor:=Selection, Address:="", SubAddress:=wSheet.Name & "!A1", TextToDisplay:=wSheet.Name
+        ActiveCell.Offset(1, 0).Select 'Moves down a row
+    Next
+    Range("A1").EntireColumn.AutoFit
+    Range("A1").EntireRow.Delete 'Remove content sheet from content list
+    Application.ScreenUpdating = True
+End Sub
